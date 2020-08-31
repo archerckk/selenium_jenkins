@@ -1,7 +1,7 @@
 from time import sleep
 from selenium import webdriver
 import os
-import  configparser
+import configparser
 import sys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -10,36 +10,36 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 
 def get_config():
-    config=configparser.ConfigParser()
-    if sys.platform=='win32':
-        os.environ['HOMEPATH']='C:/test'
-        config.read(os.path.join(os.environ['HOMEPATH'],'selenium.ini'))
+    config = configparser.ConfigParser()
+    if sys.platform == 'win32':
+        os.environ['HOMEPATH'] = 'C:/test'
+        config.read(os.path.join(os.environ['HOMEPATH'], 'selenium.ini'))
     else:
-        config.read(os.path.join(os.environ['HOME'],'selenium.ini'))
+        config.read(os.path.join(os.environ['HOME'], 'selenium.ini'))
     print(config)
     return config
 
+
 class TestWeb:
 
-
     def setup(self):
-        config=get_config()
+        config = get_config()
         print(config)
 
         try:
-            using_headless= os.environ['using_headless']
+            using_headless = os.environ['using_headless']
         except KeyError:
-            using_headless=None
+            using_headless = None
             print('使用有界面模式进行测试')
 
-        chrome_options=Options()
+        chrome_options = Options()
 
-        if using_headless is not None and using_headless.lower()=='using_headless':
-            chrome_options.add_argument('--headless')
-            print('增加运行参数')
+        if using_headless is not None and using_headless.lower() == 'true':
+            chrome_options.add_argument("--headless")
+            print('增加参数，使用无界面模式进行测试')
 
-        self.driver=webdriver.Chrome(executable_path=config.get('driver','chrome_driver'),
-                                     options=chrome_options)
+        self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
+                                       options=chrome_options)
         self.driver.implicitly_wait(5)
         self.driver.maximize_window()
 
@@ -68,7 +68,7 @@ class TestWeb:
         self.driver.find_element_by_id('TANGRAM__PSP_11__password').send_keys('test_psw')
         print(('输出账号密码登录'))
         sleep(3)
-        assert self.driver.find_element_by_id('TANGRAM__PSP_11__submit')is not None
+        assert self.driver.find_element_by_id('TANGRAM__PSP_11__submit') is not None
 
     def test_time_value(self):
         '测试用js修改12306的车票日期'
