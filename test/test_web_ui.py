@@ -66,7 +66,7 @@ class TestWeb:
         self.driver.find_element_by_id('TANGRAM__PSP_11__footerULoginBtn').click()
         self.driver.find_element_by_id('TANGRAM__PSP_11__userName').send_keys('test_user888888')
         self.driver.find_element_by_id('TANGRAM__PSP_11__password').send_keys('test_psw')
-        print(('输出账号密码登录'))
+        print(('输入账号密码登录'))
         sleep(3)
         assert self.driver.find_element_by_id('TANGRAM__PSP_11__submit') is not None
 
@@ -77,7 +77,7 @@ class TestWeb:
         sleep(2)
         self.driver.execute_script("document.getElementById('train_date').value='2020-12-30'")
         sleep(2)
-        print(self.driver.execute_script("return document.getElementById('train_date').value"))
+        print("修改车票日期为：",self.driver.execute_script("return document.getElementById('train_date').value"))
         assert self.driver.execute_script("return document.getElementById('train_date').value") == '2020-12-30'
         # print(self.driver.find_element_by_id('train_date').text)
         sleep(3)
