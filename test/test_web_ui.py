@@ -16,7 +16,6 @@ def get_config():
         config.read(os.path.join(os.environ['HOMEPATH'], 'selenium.ini'))
     else:
         config.read(os.path.join(os.environ['HOME'], 'selenium.ini'))
-    print(config)
     return config
 
 
